@@ -10,12 +10,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
-public class GlobalErrorHandler {
+public class GlobalErrorHandler extends RuntimeException {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> display(MethodArgumentNotValidException ex)
     {
-        Map<String> errorList = new HashMap<>();
+        Map<String, String> errorList = new HashMap<>();
         for (FieldError error : ex.getBindingResult().getFieldErrors())
         {
             String errorName = error.getField();

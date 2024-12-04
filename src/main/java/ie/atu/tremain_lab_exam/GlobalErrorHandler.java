@@ -6,6 +6,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.io.InvalidObjectException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,4 +25,17 @@ public class GlobalErrorHandler extends RuntimeException {
         }
         return ResponseEntity.status(400).body(errorList);
     }
+
+   /* @ExceptionHandler(InvalidObjectException.class)
+    public ResponseEntity<Map<String, String>> display(InvalidObjectException ioe)
+    {
+        Map<String, String> invObjError = new HashMap<>();
+        for (FieldError err : ioe.getStackTrace())
+        {
+            String errName = err.getField();
+            String errMsg = err.getDefaultMessage();
+            invObjError.put(errName, errMsg);
+        }
+        return ResponseEntity.status(400).body(invObjError);
+    }*/
 }
